@@ -30,7 +30,9 @@ const TodoApp = () => {
   const toggleTaskCompletion = (id) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
+        task.id === id
+          ? { ...task, completed: !task.completed }
+          : task
       )
     );
   };
@@ -56,9 +58,12 @@ const TodoApp = () => {
           <li
             key={task.id}
             className={task.completed ? 'completed' : ''}
-            onClick={() => toggleTaskCompletion(task.id)}
           >
-            <span>{task.text}</span>
+            <span
+              onClick={() => toggleTaskCompletion(task.id)}
+            >
+              {task.text}
+            </span>
             <div className="icons">
               <span
                 className="edit-icon"
