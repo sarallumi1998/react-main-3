@@ -8,9 +8,11 @@ const TodoApp = () => {
   });
   const [newTask, setNewTask] = useState('');
   const [filter, setFilter] = useState('all');
+  const [totalTasks, setTotalTasks] = useState(0);
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
+    setTotalTasks(tasks.length);
   }, [tasks]);
 
   const addTask = () => {
@@ -70,9 +72,15 @@ const TodoApp = () => {
         <button onClick={() => setFilter('active')}>Active/Pending</button>
         <button onClick={() => setFilter('completed')}>Completed</button>
       </div>
+      <p><b>Total Tasks: {totalTasks} </b> </p>
       <ul>
         {filterTasks().map((task) => (
           <li key={task.id} className={task.completed ? 'completed' : ''}>
+            <input
+              type="checkbox"
+              checked={task.completed}
+              onChange={() => toggleTaskCompletion(task.id)}
+            />
             <span onClick={() => toggleTaskCompletion(task.id)}>
               {task.text}
             </span>
