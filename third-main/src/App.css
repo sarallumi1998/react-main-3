@@ -78,10 +78,25 @@ li.completed {
   width: 20px;
   text-align: center;
 }
-
+.filter-buttons button{
+  background-color: blue;
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: white;
+  margin-left:8px;
+  border: none;
+  cursor: pointer;
+}
+.filter-buttons button:hover{
+  background-color:green;
+  }
 
 @media (max-width: 500px) {
   .todo-app {
     max-width: 100%;
+  }
+  .filter-buttons button {
+    width: 100%; 
+    margin-bottom: 5px; 
   }
 }

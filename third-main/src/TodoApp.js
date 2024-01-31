@@ -7,6 +7,7 @@ const TodoApp = () => {
     return storedTasks;
   });
   const [newTask, setNewTask] = useState('');
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -30,15 +31,26 @@ const TodoApp = () => {
   const toggleTaskCompletion = (id) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
-        task.id === id
-          ? { ...task, completed: !task.completed }
-          : task
+        task.id === id ? { ...task, completed: !task.completed } : task
       )
     );
   };
 
   const deleteTask = (id) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+  };
+
+  const filterTasks = () => {
+    switch (filter) {
+      case 'all':
+        return tasks;
+      case 'active':
+        return tasks.filter((task) => !task.completed);
+      case 'completed':
+        return tasks.filter((task) => task.completed);
+      default:
+        return tasks;
+    }
   };
 
   return (
@@ -53,15 +65,15 @@ const TodoApp = () => {
         />
         <button onClick={addTask}>Add</button>
       </div>
+      <div className="filter-buttons">
+        <button onClick={() => setFilter('all')}>All</button>
+        <button onClick={() => setFilter('active')}>Active/Pending</button>
+        <button onClick={() => setFilter('completed')}>Completed</button>
+      </div>
       <ul>
-        {tasks.map((task) => (
-          <li
-            key={task.id}
-            className={task.completed ? 'completed' : ''}
-          >
-            <span
-              onClick={() => toggleTaskCompletion(task.id)}
-            >
+        {filterTasks().map((task) => (
+          <li key={task.id} className={task.completed ? 'completed' : ''}>
+            <span onClick={() => toggleTaskCompletion(task.id)}>
               {task.text}
             </span>
             <div className="icons">
