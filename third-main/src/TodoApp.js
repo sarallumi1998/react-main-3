@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-const TodoApp = () => {
+const TodoApp = ({ darkMode }) => {
   const [tasks, setTasks] = useState(() => {
     const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
     return storedTasks;
@@ -56,7 +56,7 @@ const TodoApp = () => {
   };
 
   return (
-    <div className="todo-app">
+    <div className={`todo-app ${darkMode ? 'dark-mode' : ''}`}>
       <h1>Todo List App using React-JS</h1>
       <div className="task-input">
         <input
